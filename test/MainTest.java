@@ -61,4 +61,16 @@ class MainTest {
   }
 
   // TODO: Create your test(s) below. /////////////////////////////////////////
+    @Test
+    void createBigramsWithSpecialChars() {
+      Main.reset();
+      Connection db = Main.createConnection();
+      String input = "    @#$%^&*    ";
+      assertDoesNotThrow(() -> {
+          Main.createBigrams(db, input);
+          int wordCount = Main.getWordCount(db);
+          assertEquals(0, wordCount, "Expected " + wordCount + " words but got " + Main.getWordCount(db));
+      });
+      assertDoesNotThrow(() -> db.close());
+    }
 }
